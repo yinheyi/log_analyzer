@@ -20,6 +20,9 @@ void LogAnalyzer::DoAnalysis(uint32_t featureId) {
 }
 
 void LogAnalyzer::Init(uint32_t featureId) {
+    if (!FeatureManager::GetInstance().CheeckFeatureIdValid(featureId)) {
+        throw std::logic_error("输入的feature Id 无效, 输入的featureId = " + to_string(featureId + 1)); 
+    }
     featureId_ = featureId;
     vecLogs_.clear();
     vecCallIds_.clear();
@@ -83,7 +86,7 @@ void LogAnalyzer::InterpretSingleUserLog(uint32_t userIndex) const {
 
 void LogAnalyzer::PrintBeginInfo(uint32_t callId) const {
     OUTPUT_STREAM << "--------------------------------------------------------------------------" << endl;
-    OUTPUT_STREAM << "                 用户: CallId = " << std::dec << callId  << endl;
+    OUTPUT_STREAM << "                         用户: CallId = " << std::dec << callId  << endl;
     OUTPUT_STREAM << endl;
     OUTPUT_STREAM << endl;
     OUTPUT_STREAM << endl;

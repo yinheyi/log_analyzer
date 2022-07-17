@@ -9,6 +9,7 @@ public:
     bool IsMatch(uint32_t featureId, uint32_t logId) const;
     void AddLogRecord(const string& featureName, uint32_t logId);
     const vector<string>& GetFeatureList() const;
+    bool CheeckFeatureIdValid(uint32_t featureId) const;
 
 private:
     FeatureManager() = default;

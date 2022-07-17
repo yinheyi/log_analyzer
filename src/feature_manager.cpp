@@ -43,6 +43,10 @@ const vector<string>& FeatureManager::GetFeatureList() const {
     return featureNames_;
 }
 
+bool FeatureManager::CheeckFeatureIdValid(uint32_t featureId) const {
+    return featureId < featureNames_.size();
+}
+
 uint32_t FeatureManager::GetFeatureId(const string& featureName) const {
     for (size_t i = 0; i < featureNames_.size(); ++i) {
         if (featureNames_[i] == featureName) {

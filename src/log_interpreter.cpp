@@ -20,16 +20,16 @@ void LogInterpreter::CommOutput(const LogItem& log, basic_ostream<char>& os) con
     os << "    时间:" << log.time <<  "   logId: = 0x" << std::hex << cfgInfo_.logId << endl;
 
     if (!cfgInfo_.para1Meaning.empty()) {
-        os << "        " << cfgInfo_.para1Meaning << " = " << log.param1 << endl;
+        os << "        " << cfgInfo_.para1Meaning << " = 0x" << std::hex << log.param1 << endl;
     }
     if (!cfgInfo_.para2Meaning.empty()) {
-        os << "        " << cfgInfo_.para2Meaning << " = " << log.param2 << endl;
+        os << "        " << cfgInfo_.para2Meaning << " = 0x" << std::hex << log.param2 << endl;
     }
     if (!cfgInfo_.para3Meaning.empty()) {
-        os << "        " << cfgInfo_.para3Meaning << " = " << log.param3 << endl;
+        os << "        " << cfgInfo_.para3Meaning << " = 0x" << std::hex << log.param3 << endl;
     }
     if (!cfgInfo_.para4Meaning.empty()) {
-        os << "        " << cfgInfo_.para4Meaning << " = " << log.param4 << endl;
+        os << "        " << cfgInfo_.para4Meaning << " = 0x" << std::hex << log.param4 << endl;
     }
 }
 
