@@ -3,7 +3,7 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "C/C++: g++.exe 生成活动文件",
+			"label": "Windows: C/C++: g++.exe ",
 			"command": "D:\\programs\\msys2\\mingw64\\bin\\g++.exe",
 			"args": [
 				"-fdiagnostics-color=always",
@@ -15,14 +15,43 @@
 				"-o",
 				"${workspaceFolder}\\analyzer.exe"
 			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
 			"problemMatcher": [
 				"$gcc"
 			],
-			"group": "build",
-			"detail": "编译器: D:\\programs\\msys2\\mingw64\\bin\\g++.exe"
+			"detail": "编译器: D:\\programs\\msys2\\mingw64\\bin\\g++.exe",
+		},
+		{
+			"type": "cppbuild",
+			"label": "linux: C/C++: g++.exe ",
+			"command": "/usr/bin/g++",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-std=c++20",
+				"-I${workspaceFolder}/include",
+				"-g",
+				"${workspaceFolder}/src/*.cpp",
+				"${workspaceFolder}/*.cpp",
+				"-o",
+				"${workspaceFolder}/analyzer.exe"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": false,
+			},
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"detail": "编译器: usr/bin/g++",
 		}
 	]
 }
