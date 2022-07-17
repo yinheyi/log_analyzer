@@ -30,28 +30,31 @@ void ConsoleInterface::DisplayHomePage() {
 void ConsoleInterface::DisplayAccessOption() {
     preAction_ = ACTION_DISDPLAY_OPTIONS;
     cout << endl;
-    cout << "*********  读取配置文件，当前程序可以处理以下功能：  ************" << endl;
-    cout << "------------------------------------------------------------------" << endl;
-    cout << "|" << endl;
+    cout << "**************   读取配置文件，当前程序可以处理以下功能： ****************" << endl;
+    cout << "--------------------------------------------------------------------------" << endl;
+    cout << "  |" << endl;
     const FeatureManager& mng = FeatureManager::GetInstance();
     const vector<string>& featureList = mng.GetFeatureList();
     for (size_t i = 0; i < featureList.size(); ++i) {
-        cout << "|     [功能" << i + 1 << "]:  " << featureList[i] << " 特性日志分析" << endl;
-        cout << "|" << endl;
+        cout << "  |     [功能" << i + 1 << "]:  " << featureList[i] << " 特性日志分析" << endl;
+        cout << "  |" << endl;
     }
-    cout << "------------------------------------------------------------------" << endl;
-    cout << endl << "选择功能序号，进行下一步操作:" << endl;
+        cout << "  |" << endl;
+        cout << "  |    < 选择功能序号进行下一步操作:  >" << endl;
+        cout << "  |" << endl;
+    cout << "--------------------------------------------------------------------------" << endl;
     nextAction_ = ACTION_OPERATOR_CONTROL;
 }
 
 void ConsoleInterface::DisplayFinishPage() {
     preAction_ = ACTION_DISPLAY_FINISH_PAGE;
-    cout << "*********  程序执行完成，请选择后续操作：  ************" << endl;
-    cout << "------------------------------------------------------------------" << endl;
-    cout << "|" << endl;
-    cout << "|" << "[ 按 q/Q 键退出程序...]" << endl;
-    cout << "|" << "[ 按其它任意键返回菜单栏...]" << endl;
-    cout << "------------------------------------------------------------------" << endl;
+    cout << "****************     程序执行完成，请选择后续操作：   *********************" << endl;
+    cout << "--------------------------------------------------------------------------" << endl;
+    cout << "  |" << endl;
+    cout << "  |" << "< 按 q/Q 键退出程序....>" << endl;
+    cout << "  |" << "< 按其它键返回菜单栏...>" << endl;
+    cout << "  |" << endl;
+    cout << "--------------------------------------------------------------------------" << endl;
     nextAction_ = ACTION_OPERATOR_CONTROL;
 }
 
@@ -66,7 +69,7 @@ void ConsoleInterface::OperatorControl() {
             uint32_t selectedFeatureId = UINT32_MAX;
             if (cin >> selectedFeatureId) {
                 LogAnalyzer logAna;
-                logAna.DoAnalysis(selectedFeatureId);
+                logAna.DoAnalysis(selectedFeatureId - 1);  // 内部序号从0开始
             } else {
                 cout << "警告: 输入非法, 拒绝分析!!!" << endl;
             }

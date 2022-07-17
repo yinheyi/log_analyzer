@@ -21,7 +21,7 @@
  */
 class TxtFileInputStream final {
 public:
-    TxtFileInputStream(const string& file) : ifs_(file) {}
+    TxtFileInputStream(const string& file);
     ~TxtFileInputStream();
     TxtFileInputStream& operator>>(string& str);
     operator bool() const;

@@ -8,6 +8,13 @@
 
 #include "input_stream.h"
 
+
+TxtFileInputStream::TxtFileInputStream(const string& file) : ifs_(file) {
+    if (!ifs_) {
+        throw std::logic_error( file  + " not exist!");
+    }
+}
+
 TxtFileInputStream::~TxtFileInputStream() {
     if (ifs_.is_open()) {
         ifs_.close();
@@ -31,13 +38,13 @@ CsvFileReader& CsvFileReader::operator>> (ConfigItem& cfg) {
         return *this;
     }
     vector<string> splits = SplitStr(lineContent);
-    if (CheckValidForConfig(splits)) {
+    if (!CheckValidForConfig(splits)) {
         return *this;
     }
 
     try {
         cfg.featureName = splits[CONFIG_ENTRY_INDEX_FEATURENAME];
-        cfg.logId = stoul(splits[CONFIG_ENTRY_INDEX_FEATURENAME], nullptr, 16);
+        cfg.logId = stoul(splits[CONFIG_ENTRY_INDEX_LOGID], nullptr, 16);
         cfg.subject = splits[CONFIG_ENTRY_INDEX_SUBJECT];
         cfg.para1Meaning = splits[CONFIG_ENTRY_INDEX_PARAM1];
         cfg.para2Meaning = splits[CONFIG_ENTRY_INDEX_PARAM2];
@@ -45,7 +52,7 @@ CsvFileReader& CsvFileReader::operator>> (ConfigItem& cfg) {
         cfg.para4Meaning = splits[CONFIG_ENTRY_INDEX_PARAM4];
     } catch(std::exception& e) {
         cerr << e.what() << endl;
-        cerr << "LOG ID 格式有误，转换失败:" << splits[CONFIG_ENTRY_INDEX_FEATURENAME] << endl;
+        cerr << "LOG ID 格式有误，转换失败:" << splits[CONFIG_ENTRY_INDEX_LOGID] << endl;
         return *this;
     }
 
@@ -60,14 +67,14 @@ CsvFileReader& CsvFileReader::operator>> (LogItem& log) {
         return *this;
     }
     vector<string> splits = SplitStr(lineContent);
-    if (CheckValidForLog(splits)) {
+    if (!CheckValidForLog(splits)) {
         return *this;
     }
 
     try {
         log.time = splits[LOG_ENTRY_INDEX_TIME];
         log.callId = stoul(splits[LOG_ENTRY_INDEX_CALLID]);
-        log.logId = stoul(splits[LOG_ENTRY_INDEX_LOGID].substr(15), nullptr, 16);
+        log.logId = stoul(splits[LOG_ENTRY_INDEX_LOGID].substr(16), nullptr, 16);
         log.param1 = stoul(splits[LOG_ENTRY_INDEX_PARAM1]);
         log.param2 = stoul(splits[LOG_ENTRY_INDEX_PARAM2]);
         log.param3 = stoul(splits[LOG_ENTRY_INDEX_PARAM3]);
@@ -83,7 +90,7 @@ CsvFileReader& CsvFileReader::operator>> (LogItem& log) {
 }
 
 bool CsvFileReader::IsEndOfFile() const {
-    return txtInputStream_.operator bool();
+    return  !txtInputStream_;
 }
 
 CsvFileReader::operator bool() const {

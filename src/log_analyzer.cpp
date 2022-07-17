@@ -5,15 +5,18 @@
 #include "feature_manager.h"
 
 void LogAnalyzer::DoAnalysis(uint32_t featureId) {
+    OStreamManager::GetInstance().OpenOutputStream();
     try {
         Init(featureId);
         string logFile = GetLastestLogFile();
         ReadLogsFromFile(logFile);
         GroupingByCallId();
+        InterpretLogs();
     } catch(std::exception & e) {
-        cout << "日志分析失败，原因如下" << endl;
+        cout << "日志分析失败，原因如下: " << endl;
         cout << e.what() << endl;
     }
+    OStreamManager::GetInstance().CloseOutputStream();
 }
 
 void LogAnalyzer::Init(uint32_t featureId) {
@@ -24,7 +27,7 @@ void LogAnalyzer::Init(uint32_t featureId) {
 }
 
 string LogAnalyzer::GetLastestLogFile() const {
-    return "xiaoming";
+    return "log.csv";
 }
 
 void LogAnalyzer::ReadLogsFromFile(const string& fileName) {
@@ -79,11 +82,17 @@ void LogAnalyzer::InterpretSingleUserLog(uint32_t userIndex) const {
 }
 
 void LogAnalyzer::PrintBeginInfo(uint32_t callId) const {
-    OUTPUT_STREAM << "#############    正在分析用户日志，  CallId = " << callId << "   , 分析结果如下所示:    ##############" << endl;
+    OUTPUT_STREAM << "--------------------------------------------------------------------------" << endl;
+    OUTPUT_STREAM << "                 用户: CallId = " << std::dec << callId  << endl;
+    OUTPUT_STREAM << endl;
+    OUTPUT_STREAM << endl;
     OUTPUT_STREAM << endl;
 }
 
 void LogAnalyzer::PrintEndInfo(uint32_t callId) const {
-    OUTPUT_STREAM << "#############    分析用户日志完毕，  CallId = " << callId << "!                      ##############" << endl;
+    OUTPUT_STREAM << endl;
+    OUTPUT_STREAM << endl;
+    OUTPUT_STREAM << endl;
+    OUTPUT_STREAM << endl;
     OUTPUT_STREAM << endl;
 }

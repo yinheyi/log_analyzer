@@ -46,7 +46,7 @@ private:
 
     string CreateFileName();
 
-    ofstream fileCount;
+    ofstream fileOut_;
     basic_ostream<char>* os_ = nullptr;
     OStreamType streamType_ = OSTREAM_TYPE_CONSOLE;
     static OStreamManager single_;

@@ -19,8 +19,8 @@ OStreamManager::OStreamManager() {
 
 OStreamManager::~OStreamManager() {
     os_ = nullptr;
-    if (fileCount.is_open()) {
-        fileCount.close();
+    if (fileOut_.is_open()) {
+        fileOut_.close();
     }
 }
 
@@ -35,8 +35,11 @@ void OStreamManager::OpenOutputStream() {
             break;
         case OSTREAM_TYPE_FILE: {
                 string fileName = CreateFileName();
-                fileCount.open(fileName, ios_base::out);
-                os_ = &fileCount;
+                fileOut_.open(fileName);
+                if (!fileOut_) {
+                    throw runtime_error("ERROR: 创建文件输出流失败! 文件名为: " + fileName);
+                }
+                os_ = &fileOut_;
             }
             break;
         default:
@@ -47,7 +50,7 @@ void OStreamManager::OpenOutputStream() {
 void OStreamManager::CloseOutputStream() {
     os_ = nullptr;
     if (streamType_ == OSTREAM_TYPE_FILE) {
-        fileCount.close();
+        fileOut_.close();
     }
 }
 
@@ -68,7 +71,7 @@ string OStreamManager::CreateFileName() {
         oss << setfill('0') << setw(2) << localTm->tm_mday << '_';
         oss << setfill('0') << setw(2) << localTm->tm_hour;
         oss << setfill('0') << setw(2) << localTm->tm_min << '_';
-        oss << "result.txt" << endl;
+        oss << "result.txt";
         return oss.str();
     } catch (std::exception &e) {
         cerr << e.what() << endl;

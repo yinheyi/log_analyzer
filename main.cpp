@@ -3,16 +3,15 @@
 #include "console_display.h"
 
 int main() {
-    // 配置初始化
-    ConfigInitializer cfgInit;
-    cfgInit.init();
-
-    // 初始化输出流
-    OStreamManager::GetInstance().Init(OSTREAM_TYPE_CONSOLE);
-
-    // 启用交互
-    ConsoleInterface interface;
-    interface.Run();
+    try {
+        ConfigInitializer cfgInit;
+        cfgInit.init();
+        OStreamManager::GetInstance().Init(OSTREAM_TYPE_CONSOLE);
+        ConsoleInterface interface;
+        interface.Run();
+    } catch(std::exception& e) {
+        cerr << e.what() << endl;
+    }
 
     return 0;
 }

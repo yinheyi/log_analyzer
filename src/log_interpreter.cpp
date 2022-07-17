@@ -16,28 +16,21 @@ void LogInterpreter::DoInterpret(const LogItem& inputLog, basic_ostream<char>& o
 
 void LogInterpreter::CommOutput(const LogItem& log, basic_ostream<char>& os) const
 {
-    // 第一行: 时间  callId：xxxx    logId: 0xxxxx.
-    os << log.time << "        ";
-    os << "callId = " << log.callId << "        ";
-    os << "logId: = 0x" << std::hex << cfgInfo_.logId;
-    os << endl;
-
-    // 第二行： 主题
-    os << cfgInfo_.subject << endl;
+    os << endl << cfgInfo_.subject << endl;
+    os << "    时间:" << log.time <<  "   logId: = 0x" << std::hex << cfgInfo_.logId << endl;
 
     if (!cfgInfo_.para1Meaning.empty()) {
-        os << cfgInfo_.para1Meaning << " = " << log.param1 << "    ";
+        os << "        " << cfgInfo_.para1Meaning << " = " << log.param1 << endl;
     }
     if (!cfgInfo_.para2Meaning.empty()) {
-        os << cfgInfo_.para2Meaning << " = " << log.param2 << "    ";
+        os << "        " << cfgInfo_.para2Meaning << " = " << log.param2 << endl;
     }
     if (!cfgInfo_.para3Meaning.empty()) {
-        os << cfgInfo_.para3Meaning << " = " << log.param3 << "    ";
+        os << "        " << cfgInfo_.para3Meaning << " = " << log.param3 << endl;
     }
     if (!cfgInfo_.para4Meaning.empty()) {
-        os << cfgInfo_.para4Meaning << " = " << log.param4 << "    ";
+        os << "        " << cfgInfo_.para4Meaning << " = " << log.param4 << endl;
     }
-    os << endl;
 }
 
 void LogInterpreter::CustomOutput(const LogItem& log, basic_ostream<char>& os) const

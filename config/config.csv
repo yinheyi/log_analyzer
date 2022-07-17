@@ -1,5 +1,5 @@
-Feature Name,LogId,Subject,Param1,param2,param3,pram4
-Comm,0x1133,收到F1setup消息,用户Id,,,
-Comp,0x382a,收到CU带下来COMP协作集信息,协作数个数,,,
-Sul,0x13a3,SUL子表创建成功,SUL类型为,,,
-短时延,0x248d,,参数1含义,参数2,,参数3
+FeatureName,LogId,Subject,Param1,param2,param3,pram4
+Comm,0x1121,收到F1setup消息,用户Id,上海,,
+Comp,0x1122,收到COMP协作集信息,协作数个数,右边,,
+Sul,0x1123,SUL子表创建成功,SUL类型为,上边,,
+lowLatency,0x1124,小明同学叫小黑,身高,体重,,
