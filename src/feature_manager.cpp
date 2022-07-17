@@ -2,6 +2,10 @@
 
 FeatureManager FeatureManager::manager_;
 
+FeatureManager& FeatureManager::GetInstance() {
+    return manager_;
+}
+
 bool FeatureManager::IsMatch(uint32_t featureId, uint32_t logId) const {
     if (commLogIds_.find(logId) != commLogIds_.end()) {
         return true;
@@ -33,6 +37,10 @@ void FeatureManager::AddLogRecord(const string& featureName, uint32_t logId) {
     if (!success) {
         cerr << "Add log Record Error, featureName = " << featureName << ", logId = " << logId << endl;
     }
+}
+
+const vector<string>& FeatureManager::GetFeatureList() const {
+    return featureNames_;
 }
 
 uint32_t FeatureManager::GetFeatureId(const string& featureName) const {

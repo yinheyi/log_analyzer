@@ -6,6 +6,9 @@
  * @version  0.1.0
  */
 
+#ifndef LOG_INTERPRETER_MANAGER_H
+#define LOG_INTERPRETER_MANAGER_H
+
 #include "comm.h"
 #include "log_interpreter.h"
 
@@ -22,3 +25,5 @@ private:
     static LogInterpreterManager manager_;
     unordered_map<uint32_t, unique_ptr<LogInterpreter>> table_;
 };
+
+#endif

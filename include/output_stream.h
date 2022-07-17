@@ -41,12 +41,11 @@ public:
     basic_ostream<char>& GetOutputStream();
 
 private:
-    OStreamManager() = default;
+    OStreamManager();
     ~OStreamManager();
 
     string CreateFileName();
 
-    ostream consoleCout;
     ofstream fileCount;
     basic_ostream<char>* os_ = nullptr;
     OStreamType streamType_ = OSTREAM_TYPE_CONSOLE;

@@ -14,5 +14,5 @@ int main() {
     ConsoleInterface interface;
     interface.Run();
 
-    return true;
+    return 0;
 }

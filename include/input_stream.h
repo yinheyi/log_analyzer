@@ -6,6 +6,9 @@
  * @version  0.1.0
  */
 
+#ifndef INPUT_STREAM_H
+#define INPUT_STREAM_H
+
 #include "comm.h"
 #include "config_define.h"
 #include "log_define.h"
@@ -49,3 +52,6 @@ private:
     bool isReadSuccess_ = false;
     TxtFileInputStream txtInputStream_;
 };
+
+
+#endif

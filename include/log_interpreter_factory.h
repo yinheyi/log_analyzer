@@ -6,6 +6,9 @@
  * @version  0.1.0
  */
 
+#ifndef LOG_INTERPRETER_FACTORY_H
+#define LOG_INTERPRETER_FACTORY_H
+
 #include "comm.h"
 #include "config_define.h"
 #include "log_interpreter.h"
@@ -25,3 +28,5 @@ private:
     static LogInterpreterFactory factory_;
     unordered_map<uint32_t, LogInterpreterCreator> creatorTable_;
 };
+
+#endif

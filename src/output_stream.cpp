@@ -14,6 +14,9 @@ OStreamManager& OStreamManager::GetInstance() {
     return single_;
 }
 
+OStreamManager::OStreamManager() {
+}
+
 OStreamManager::~OStreamManager() {
     os_ = nullptr;
     if (fileCount.is_open()) {
@@ -28,7 +31,7 @@ void OStreamManager::Init(OStreamType type) {
 void OStreamManager::OpenOutputStream() {
     switch (streamType_) {
         case OSTREAM_TYPE_CONSOLE:
-            os_ = &consoleCout;
+            os_ = &cout;
             break;
         case OSTREAM_TYPE_FILE: {
                 string fileName = CreateFileName();

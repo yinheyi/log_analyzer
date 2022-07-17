@@ -13,7 +13,7 @@
 				"${workspaceFolder}\\src\\*.cpp",
 				"${workspaceFolder}\\*.cpp",
 				"-o",
-				"${workspaceFolder}\\anyalyzer.exe"
+				"${workspaceFolder}\\analyzer.exe"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"

@@ -15,7 +15,7 @@ void ConsoleInterface::Run() {
             case ACTION_DISPLAY_FINISH_PAGE:
                 DisplayFinishPage();
             default:
-                /* no thing */
+                /* no thing */;
         }
     }
 }
@@ -24,10 +24,11 @@ void ConsoleInterface::DisplayHomePage() {
     preAction_ = ACTION_DISDPLAY_HOME_PAGE;
     cout << "" << endl;
     cout << "按任意键继续..." << endl;
-    nextAction_ = ACTION_DISDPLAY_OPTIONS;
+    nextAction_ = ACTION_OPERATOR_CONTROL;
 }
 
 void ConsoleInterface::DisplayAccessOption() {
+    preAction_ = ACTION_DISDPLAY_OPTIONS;
     cout << endl;
     cout << "*********  读取配置文件，当前程序可以处理以下功能：  ************" << endl;
     cout << "------------------------------------------------------------------" << endl;
@@ -40,19 +41,21 @@ void ConsoleInterface::DisplayAccessOption() {
     }
     cout << "------------------------------------------------------------------" << endl;
     cout << endl << "选择功能序号，进行下一步操作:" << endl;
+    nextAction_ = ACTION_OPERATOR_CONTROL;
 }
 
 void ConsoleInterface::DisplayFinishPage() {
+    preAction_ = ACTION_DISPLAY_FINISH_PAGE;
     cout << "*********  程序执行完成，请选择后续操作：  ************" << endl;
     cout << "------------------------------------------------------------------" << endl;
     cout << "|" << endl;
     cout << "|" << "[ 按 q/Q 键退出程序...]" << endl;
     cout << "|" << "[ 按其它任意键返回菜单栏...]" << endl;
     cout << "------------------------------------------------------------------" << endl;
+    nextAction_ = ACTION_OPERATOR_CONTROL;
 }
 
 void ConsoleInterface::OperatorControl() {
-    preAction_ = ACTION_OPERATOR_CONTROL;
     switch(preAction_) {
         case ACTION_DISDPLAY_HOME_PAGE: {
             char temp;
@@ -78,4 +81,5 @@ void ConsoleInterface::OperatorControl() {
             nextAction_ = ACTION_DISDPLAY_OPTIONS;
         } break;
     }
+    preAction_ = ACTION_OPERATOR_CONTROL;
 }
