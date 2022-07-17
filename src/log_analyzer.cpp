@@ -3,13 +3,15 @@
 #include "output_stream.h"
 #include "log_interpreter_manager.h"
 #include "feature_manager.h"
+#include "file_system_manager.h"
 
 void LogAnalyzer::DoAnalysis(uint32_t featureId) {
     OStreamManager::GetInstance().OpenOutputStream();
     try {
         Init(featureId);
         string logFile = GetLastestLogFile();
-        ReadLogsFromFile(logFile);
+        auto path = FsManager::GetInstance().FindLastestLogFile();
+        ReadLogsFromFile(path.string());
         GroupingByCallId();
         InterpretLogs();
     } catch(std::exception & e) {
@@ -34,12 +36,17 @@ string LogAnalyzer::GetLastestLogFile() const {
 }
 
 void LogAnalyzer::ReadLogsFromFile(const string& fileName) {
-    CsvFileReader readerStream(fileName);
-    LogItem temp;
-    while (!readerStream.IsEndOfFile()) {
-        if (readerStream >> temp) {
-            vecLogs_.push_back(temp);
+    try {
+        CsvFileReader readerStream(fileName);
+        LogItem temp;
+        while (!readerStream.IsEndOfFile()) {
+            if (readerStream >> temp) {
+                vecLogs_.push_back(temp);
+            }
         }
+    } catch (std::exception& e) {
+        cerr << "读取log文件 " << fileName << "失败，原因如下: " << endl;
+        throw std::runtime_error("读取log 文件失败!");
     }
 }
 

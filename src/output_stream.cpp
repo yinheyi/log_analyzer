@@ -7,6 +7,7 @@
  */
 
 #include "output_stream.h"
+#include "file_system_manager.h"
 
 OStreamManager OStreamManager::single_;
 
@@ -34,10 +35,10 @@ void OStreamManager::OpenOutputStream() {
             os_ = &cout;
             break;
         case OSTREAM_TYPE_FILE: {
-                string fileName = CreateFileName();
-                fileOut_.open(fileName);
+                auto path = FsManager::GetInstance().CreateOutputFilePath();
+                fileOut_.open(path);
                 if (!fileOut_) {
-                    throw runtime_error("ERROR: 创建文件输出流失败! 文件名为: " + fileName);
+                    throw runtime_error("ERROR: 创建文件输出流失败! 文件名为: " + path.string());
                 }
                 os_ = &fileOut_;
             }
@@ -61,21 +62,3 @@ basic_ostream<char>& OStreamManager::GetOutputStream() {
     return *os_;
 }
 
-string OStreamManager::CreateFileName() {
-    try {
-        std::time_t tm = time(nullptr);
-        std::tm* localTm = localtime(&tm);
-        ostringstream oss;
-        oss << localTm->tm_year + 1900 << '_';
-        oss << setfill('0') << setw(2) << localTm->tm_mon + 1;
-        oss << setfill('0') << setw(2) << localTm->tm_mday << '_';
-        oss << setfill('0') << setw(2) << localTm->tm_hour;
-        oss << setfill('0') << setw(2) << localTm->tm_min << '_';
-        oss << "result.txt";
-        return oss.str();
-    } catch (std::exception &e) {
-        cerr << e.what() << endl;
-        cerr << "Error: Create Output File Failed" << endl;
-        throw;
-    }
-}
