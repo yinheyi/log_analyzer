@@ -21,7 +21,7 @@ private:
     string CreateFileNameByTime() const;
 
     const filesystem::path configFilePath{"config/config.csv"};
-    const filesystem::path outputPath{"anylysis_result/"};
+    const filesystem::path outputPath{"log_output/"};
     const filesystem::path inputPath{"log_input/"};
 
     static FsManager fsMng_;
