@@ -8,7 +8,7 @@ int main() {
         FsManager::GetInstance().Init();    // 文件系统初始化
         ConfigInitializer cfgInit;
         cfgInit.init();
-        OStreamManager::GetInstance().Init(OSTREAM_TYPE_FILE);
+        OStreamManager::GetInstance().Init(OSTREAM_TYPE_CONSOLE);
         ConsoleInterface interface;
         interface.Run();
     } catch(std::exception& e) {

@@ -44,11 +44,15 @@ cout << "   88      .a8P  Y8a.    .a8P          Y8a.    .a8P 88          88    `
 cout << "   88888888Y\"'    `\"Y8888Y\"'            `\"Y8888Y\"'  88888888888 88     `8'     88 " << endl; 
 cout << endl;
 cout << endl;
-
-cout << "                             / __             " << endl; 
-cout << "                            //   ) ) //   / / " << endl; 
-cout << "                           //   / / ((___/ /  " << endl; 
-cout << "                          ((___/ /      / /   " << endl; 
+cout << "                             __                  " << endl;
+cout << "                            /\\ \\                 " << endl;
+cout << "                            \\ \\ \\____  __  __    " << endl;
+cout << "                             \\ \\ '__`\\/\\ \\/\\ \\   " << endl;
+cout << "                              \\ \\ \\L\\ \\ \\ \\_\\ \\  " << endl;
+cout << "                               \\ \\_,__/\\/`____ \\ " << endl;
+cout << "                                \\/___/  `/___/> \\" << endl;
+cout << "                                           /\\___/" << endl;
+cout << "                                           \\/__/ " << endl;
 cout << endl;
 cout << "                                                                   '  / _   '" << endl; 
 cout << "                                                                (///)/)(-(// " << endl; 
