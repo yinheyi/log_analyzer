@@ -9,8 +9,7 @@ void LogAnalyzer::DoAnalysis(uint32_t featureId) {
     OStreamManager::GetInstance().OpenOutputStream();
     try {
         Init(featureId);
-        auto path = FsManager::GetInstance().FindLastestLogFile();
-        ReadLogsFromFile(path.string());
+        ReadLogsFromFile();
         GroupingByCallId();
         InterpretLogs();
     } catch(std::exception & e) {
@@ -30,9 +29,11 @@ void LogAnalyzer::Init(uint32_t featureId) {
     groups_.clear();
 }
 
-void LogAnalyzer::ReadLogsFromFile(const string& fileName) {
+void LogAnalyzer::ReadLogsFromFile() {
     try {
-        CsvFileReader readerStream(fileName);
+        auto path = FsManager::GetInstance().FindLastestLogFile();
+        cout << endl << "正在读取日志:  " << path.string() << "  ........." << endl << endl;
+        CsvFileReader readerStream(path);
         LogItem temp;
         while (!readerStream.IsEndOfFile()) {
             if (readerStream >> temp) {
@@ -40,8 +41,8 @@ void LogAnalyzer::ReadLogsFromFile(const string& fileName) {
             }
         }
     } catch (std::exception& e) {
-        cerr << "读取log文件 " << fileName << "失败，原因如下: " << endl;
-        throw std::runtime_error("读取log 文件失败!");
+        cerr << "读取log文件 失败，原因: " << e.what() << endl;
+        throw std::runtime_error("从文件中读取日志信息失败!");
     }
 }
 

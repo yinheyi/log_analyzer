@@ -20,7 +20,7 @@ void ConfigInitializer::init() {
 
 std::vector<ConfigItem> ConfigInitializer::ReadCfgInfoFromFile() const {
     const auto& path = FsManager::GetInstance().GetCfgFilePath();
-    CsvFileReader readerStream(path.string());
+    CsvFileReader readerStream(path);
 
     vector<ConfigItem> result;
     ConfigItem temp;

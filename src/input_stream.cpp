@@ -8,10 +8,9 @@
 
 #include "input_stream.h"
 
-
-TxtFileInputStream::TxtFileInputStream(const string& file) : ifs_(file) {
+TxtFileInputStream::TxtFileInputStream(const filesystem::path& file) : ifs_(file) {
     if (!ifs_) {
-        throw std::logic_error( file  + " not exist!");
+        throw std::logic_error( file.string()  + " read error !");
     }
 }
 
