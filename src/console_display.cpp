@@ -26,10 +26,10 @@ void ConsoleInterface::DisplayHomePage() {
 cout << endl;
 cout << endl;
 cout << "####################################################################################" << endl;
-cout << "                           #                #" << endl;
-cout << "                           #  LOG ANALYZER  #" << endl;
-cout << "                           #                #" << endl;
-cout << "                           ##################" << endl;
+cout << "                               #                #" << endl;
+cout << "                               #  LOG ANALYZER  #" << endl;
+cout << "                               #                #" << endl;
+cout << "                               ##################" << endl;
 cout << endl;
 cout << endl;
 cout << endl;
@@ -75,6 +75,7 @@ nextAction_ = ACTION_OPERATOR_CONTROL;
 void ConsoleInterface::DisplayAccessOption() {
     preAction_ = ACTION_DISDPLAY_OPTIONS;
     cout << endl;
+    cout << endl;
     cout << "**************   读取配置文件，当前程序可以处理以下功能： ****************" << endl;
     cout << "--------------------------------------------------------------------------" << endl;
     cout << "  |" << endl;
@@ -93,6 +94,8 @@ void ConsoleInterface::DisplayAccessOption() {
 
 void ConsoleInterface::DisplayFinishPage() {
     preAction_ = ACTION_DISPLAY_FINISH_PAGE;
+    cout << endl;
+    cout << endl;
     cout << "****************     程序执行完成，请选择后续操作：   *********************" << endl;
     cout << "--------------------------------------------------------------------------" << endl;
     cout << "  |" << endl;

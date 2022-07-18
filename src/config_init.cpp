@@ -4,6 +4,7 @@
 #include "log_interpreter_factory.h"
 #include "log_interpreter_manager.h"
 #include "feature_manager.h"
+#include "file_system_manager.h"
 
 void ConfigInitializer::init() {
     try {
@@ -18,8 +19,8 @@ void ConfigInitializer::init() {
 }
 
 std::vector<ConfigItem> ConfigInitializer::ReadCfgInfoFromFile() const {
-    static const string cfgFileName{"config/config.csv"};
-    CsvFileReader readerStream(cfgFileName);
+    const auto& path = FsManager::GetInstance().GetCfgFilePath();
+    CsvFileReader readerStream(path.string());
 
     vector<ConfigItem> result;
     ConfigItem temp;

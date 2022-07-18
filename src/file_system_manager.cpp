@@ -34,6 +34,7 @@ filesystem::path FsManager::FindLastestLogFile() const {
         }
         auto ftime = p.last_write_time();
         if (ftime < latestTime) {
+            latestTime = ftime;
             targetPath = p.path();
             isFind = true;
         }

@@ -46,10 +46,18 @@ CsvFileReader& CsvFileReader::operator>> (ConfigItem& cfg) {
         cfg.featureName = splits[CONFIG_ENTRY_INDEX_FEATURENAME];
         cfg.logId = stoul(splits[CONFIG_ENTRY_INDEX_LOGID], nullptr, 16);
         cfg.subject = splits[CONFIG_ENTRY_INDEX_SUBJECT];
-        cfg.para1Meaning = splits[CONFIG_ENTRY_INDEX_PARAM1];
-        cfg.para2Meaning = splits[CONFIG_ENTRY_INDEX_PARAM2];
-        cfg.para3Meaning = splits[CONFIG_ENTRY_INDEX_PARAM3];
-        cfg.para4Meaning = splits[CONFIG_ENTRY_INDEX_PARAM4];
+        if (CONFIG_ENTRY_INDEX_PARAM1 < splits.size()) {
+            cfg.para1Meaning = splits[CONFIG_ENTRY_INDEX_PARAM1];
+        }
+        if (CONFIG_ENTRY_INDEX_PARAM2 < splits.size()) {
+            cfg.para2Meaning = splits[CONFIG_ENTRY_INDEX_PARAM2];
+        }
+        if (CONFIG_ENTRY_INDEX_PARAM3 < splits.size()) {
+            cfg.para3Meaning = splits[CONFIG_ENTRY_INDEX_PARAM3];
+        }
+        if (CONFIG_ENTRY_INDEX_PARAM4 < splits.size()) {
+            cfg.para4Meaning = splits[CONFIG_ENTRY_INDEX_PARAM4];
+        }
     } catch(std::exception& e) {
         cerr << e.what() << endl;
         cerr << "LOG ID 格式有误，转换失败:" << splits[CONFIG_ENTRY_INDEX_LOGID] << endl;
@@ -75,10 +83,18 @@ CsvFileReader& CsvFileReader::operator>> (LogItem& log) {
         log.time = splits[LOG_ENTRY_INDEX_TIME];
         log.callId = stoul(splits[LOG_ENTRY_INDEX_CALLID]);
         log.logId = stoul(splits[LOG_ENTRY_INDEX_LOGID].substr(16), nullptr, 16);
-        log.param1 = stoul(splits[LOG_ENTRY_INDEX_PARAM1]);
-        log.param2 = stoul(splits[LOG_ENTRY_INDEX_PARAM2]);
-        log.param3 = stoul(splits[LOG_ENTRY_INDEX_PARAM3]);
-        log.param4 = stoul(splits[LOG_ENTRY_INDEX_PARAM4]);
+        if (LOG_ENTRY_INDEX_PARAM1 < splits.size()) {
+            log.param1 = stoul(splits[LOG_ENTRY_INDEX_PARAM1]);
+        }
+        if (LOG_ENTRY_INDEX_PARAM2 < splits.size()) {
+            log.param2 = stoul(splits[LOG_ENTRY_INDEX_PARAM2]);
+        }
+        if (LOG_ENTRY_INDEX_PARAM3 < splits.size()) {
+            log.param3 = stoul(splits[LOG_ENTRY_INDEX_PARAM3]);
+        }
+        if (LOG_ENTRY_INDEX_PARAM4 < splits.size()) {
+            log.param4 = stoul(splits[LOG_ENTRY_INDEX_PARAM4]);
+        }
     } catch(std::exception& e) {
         cerr << e.what() << endl;
         cerr << "LOG 解析过程中，数字转换失败, 当前的LOG信息为:" << lineContent << endl;
@@ -100,8 +116,12 @@ CsvFileReader::operator bool() const {
 vector<string> CsvFileReader::SplitStr(const string& input) {
     vector<string> rst;
     string temp;
+    uint32_t quoteMarkNum = 0;
     for (size_t pos = 0; pos < input.size(); ++pos) { 
-        if (input[pos] == ',') {
+        if (input[pos] == '"') {
+            ++quoteMarkNum;
+        }
+        if (quoteMarkNum % 2 == 0 && input[pos] == ',') {
             rst.push_back(temp);
             temp.clear();
             continue;
@@ -115,9 +135,8 @@ vector<string> CsvFileReader::SplitStr(const string& input) {
 }
 
 bool CsvFileReader::CheckValidForConfig(const vector<string> &strs) {
-    if (strs.size() != CONFIG_ENTRY_INDEX_BUTT) {
-        cerr << "Config File Entry Error, Expected Num = "
-             << CONFIG_ENTRY_INDEX_BUTT << ", Actual Num = " << strs.size() << "!" << endl;
+    if (strs.size() < CONFIG_ENTRY_INDEX_PARAM1) {
+        cerr << "Config File Entry Error, Entry Num = " << strs.size() << "!" << endl;
         return false;
     }
     // 跳过行首
@@ -128,9 +147,8 @@ bool CsvFileReader::CheckValidForConfig(const vector<string> &strs) {
 }
 
 bool CsvFileReader::CheckValidForLog(const vector<string> &strs) {
-    if (strs.size() != LOG_ENTRY_INDEX_BUTT) {
-        cerr << "Log File Entry Error, Expected Num = "
-             << LOG_ENTRY_INDEX_BUTT << ", Actual Num = " << strs.size() << "!" << endl;
+    if (strs.size() < LOG_ENTRY_INDEX_PARAM1) {
+        cerr << "Log File Entry Error,  entry Num = " << strs.size() << "!" << endl;
         return false;
     }
     // 跳过首行

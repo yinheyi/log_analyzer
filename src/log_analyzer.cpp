@@ -9,7 +9,6 @@ void LogAnalyzer::DoAnalysis(uint32_t featureId) {
     OStreamManager::GetInstance().OpenOutputStream();
     try {
         Init(featureId);
-        string logFile = GetLastestLogFile();
         auto path = FsManager::GetInstance().FindLastestLogFile();
         ReadLogsFromFile(path.string());
         GroupingByCallId();
@@ -23,16 +22,12 @@ void LogAnalyzer::DoAnalysis(uint32_t featureId) {
 
 void LogAnalyzer::Init(uint32_t featureId) {
     if (!FeatureManager::GetInstance().CheeckFeatureIdValid(featureId)) {
-        throw std::logic_error("输入的feature Id 无效, 输入的featureId = " + to_string(featureId + 1)); 
+        throw std::logic_error("输入的序号无效, 你是不是傻呢！！!"); 
     }
     featureId_ = featureId;
     vecLogs_.clear();
     vecCallIds_.clear();
     groups_.clear();
-}
-
-string LogAnalyzer::GetLastestLogFile() const {
-    return "log.csv";
 }
 
 void LogAnalyzer::ReadLogsFromFile(const string& fileName) {
