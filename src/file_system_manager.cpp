@@ -24,25 +24,29 @@ const filesystem::path& FsManager::GetCfgFilePath() const {
 }
 
 filesystem::path FsManager::FindLastestLogFile() const {
-
     bool isFind = false;
     filesystem::file_time_type latestTime;
     filesystem::path targetPath;
-    for (auto& p : filesystem::directory_iterator(inputPath)) {
+    for (const auto& p : filesystem::directory_iterator(inputPath)) {
         if (p.path().extension() != ".csv") {
             continue;
         }
         auto ftime = p.last_write_time();
-        if (ftime < latestTime) {
+
+        if (!isFind) {
             latestTime = ftime;
             targetPath = p.path();
             isFind = true;
+        } else if (ftime > latestTime) {
+            latestTime = ftime;
+            targetPath = p.path();
         }
     }
-    if (isFind) {
-        return targetPath;
+
+    if (!isFind) {
+        throw std::logic_error("在log_input目录下，不存在LOG文件(*.csv)");
     }
-    throw std::logic_error("在log_input目录下，不存在LOG文件(*.csv)");
+    return targetPath;
 }
 
 filesystem::path FsManager::CreateOutputFilePath() const {

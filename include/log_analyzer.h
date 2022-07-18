@@ -11,7 +11,7 @@ public:
 private:
     void Init(uint32_t featureId);
     string GetLastestLogFile() const;
-    void ReadLogsFromFile(const string& fileName);
+    void ReadLogsFromFile();
     void GroupingByCallId();
     void InterpretLogs() const;
     void InterpretSingleUserLog(uint32_t userIndex) const;

@@ -21,7 +21,7 @@
  */
 class TxtFileInputStream final {
 public:
-    TxtFileInputStream(const string& file);
+    TxtFileInputStream(const filesystem::path& file);
     ~TxtFileInputStream();
     TxtFileInputStream& operator>>(string& str);
     operator bool() const;
@@ -37,7 +37,7 @@ private:
  */
 class CsvFileReader {
 public:
-    CsvFileReader(const string& file) : txtInputStream_(file) {}
+    CsvFileReader(const filesystem::path& file) : txtInputStream_(file) {}
     ~CsvFileReader() = default;
     CsvFileReader& operator>> (ConfigItem& cfg);
     CsvFileReader& operator>> (LogItem& log);
